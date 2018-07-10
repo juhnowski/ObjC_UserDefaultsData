@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#define k_Save @"Save"
 
 @interface ViewController ()
 
@@ -17,6 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSUserDefaults *savedapp = [NSUserDefaults standardUserDefaults];
+    bool saved = [savedapp boolForKey:k_Save];
+    if(!saved) {
+        self.Label.text = @"not saved";
+    } else {
+        self.Label.text = @"saved";
+    }
 }
 
 
@@ -26,4 +34,10 @@
 }
 
 
+- (IBAction)SaveApp:(id)sender {
+    NSUserDefaults *savedapp = [NSUserDefaults standardUserDefaults];
+    [savedapp setBool:TRUE forKey:k_Save];
+    [savedapp synchronize];
+    self.Label.text = @"saved";
+}
 @end
